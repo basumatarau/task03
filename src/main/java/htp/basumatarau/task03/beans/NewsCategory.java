@@ -13,6 +13,7 @@ public class NewsCategory {
     private int idCategory;
     @Column(name = "categoryName")
     private String categoryName;
+
     @OneToMany(mappedBy = "category")
     private Set<NewsItem> newsItemSet;
 

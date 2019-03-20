@@ -5,7 +5,8 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
-@Entity(name = "newsItems")
+@Entity
+@Table(name = "newsItems")
 public class NewsItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,10 +17,20 @@ public class NewsItem {
     @JoinColumn(name = "newsCategory_idCategory")
     private NewsCategory category;
 
-    @ManyToMany(mappedBy = "newsItemSet")
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "newsItems_has_tags",
+            joinColumns = {@JoinColumn(name = "newsItems_idNewsItem")},
+            inverseJoinColumns = {@JoinColumn(name = "tags_idTag")}
+    )
     private Set<Tag> tagSet;
 
-    @ManyToMany(mappedBy = "newsItemSet")
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "newsItems_has_authors",
+            joinColumns = {@JoinColumn(name = "newsItems_idNewsItem")},
+            inverseJoinColumns = {@JoinColumn(name = "authors_idAuthor")}
+    )
     private Set<Author> authorSet;
 
     @Column(name = "publicationDate")

@@ -14,12 +14,7 @@ public class Author {
     @Column(name = "author")
     private String author;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(
-            name = "newsItems_has_authors",
-            joinColumns = {@JoinColumn(name = "authors_idAuthor")},
-            inverseJoinColumns = {@JoinColumn(name = "newsItems_idNewsItem")}
-    )
+    @ManyToMany(mappedBy = "authorSet")
     private Set<NewsItem> newsItemSet;
 
     public int getIdAuthor() {
@@ -44,6 +39,11 @@ public class Author {
 
     public void setNewsItemSet(Set<NewsItem> newsItemSet) {
         this.newsItemSet = newsItemSet;
+    }
+
+    @Override
+    public String toString() {
+        return author;
     }
 
     @Override

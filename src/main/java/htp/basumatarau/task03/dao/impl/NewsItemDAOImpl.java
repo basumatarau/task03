@@ -2,6 +2,7 @@ package htp.basumatarau.task03.dao.impl;
 
 import htp.basumatarau.task03.beans.NewsItem;
 import htp.basumatarau.task03.dao.DAO;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -14,8 +15,19 @@ public class NewsItemDAOImpl
     }
 
     @Override
-    public NewsItem read(Integer integer) {
-        return null;
+    public NewsItem read(Integer id) {
+        openCurrentSession();
+
+        Query<NewsItem> query = getCurrentSession().createQuery("from NewsItem ni " +
+                "join fetch ni.category " +
+                "join fetch ni.tagSet " +
+                "join fetch ni.authorSet " +
+                "where ni.idNewsItem=:id ", NewsItem.class);
+
+        query.setParameter("id", id);
+        NewsItem singleResult = query.getSingleResult();
+        closeCurrentSession();
+        return singleResult;
     }
 
     @Override

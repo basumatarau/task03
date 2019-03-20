@@ -19,7 +19,7 @@ USE `task03` ;
 -- Table `task03`.`newsCategories`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `task03`.`newsCategories` (
-  `idCategory` INT NOT NULL,
+  `idCategory` INT NOT NULL AUTO_INCREMENT,
   `categoryName` VARCHAR(80) NOT NULL,
 PRIMARY KEY (`idCategory`))
 ENGINE = InnoDB;

@@ -14,12 +14,7 @@ public class Tag {
     @Column(name = "tag")
     private String tag;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(
-            name = "newsItems_has_tags",
-            joinColumns = {@JoinColumn(name = "tags_idTag")},
-            inverseJoinColumns = {@JoinColumn(name = "newsItems_idNewsItem")}
-    )
+    @ManyToMany(mappedBy = "tagSet")
     private Set<NewsItem> newsItemSet;
 
     public int getIdTag() {
@@ -44,6 +39,11 @@ public class Tag {
 
     public void setNewsItemSet(Set<NewsItem> newsItemSet) {
         this.newsItemSet = newsItemSet;
+    }
+
+    @Override
+    public String toString() {
+        return tag;
     }
 
     @Override
