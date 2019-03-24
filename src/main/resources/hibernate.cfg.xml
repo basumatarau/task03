@@ -23,7 +23,11 @@
 
 		<!-- Set the current session context -->
 		<property name="current_session_context_class">thread</property>
- 
+
+        <mapping class="htp.basumatarau.task03.beans.Author"/>
+        <mapping class="htp.basumatarau.task03.beans.Tag"/>
+        <mapping class="htp.basumatarau.task03.beans.NewsCategory"/>
+        <mapping class="htp.basumatarau.task03.beans.NewsItem"/>
     </session-factory>
 
 </hibernate-configuration>

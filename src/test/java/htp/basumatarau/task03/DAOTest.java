@@ -8,7 +8,9 @@ import htp.basumatarau.task03.dao.impl.AuthorDAOImpl;
 import htp.basumatarau.task03.dao.impl.NewsCategoryDAOImpl;
 import htp.basumatarau.task03.dao.impl.NewsItemDAOImpl;
 import htp.basumatarau.task03.dao.impl.TagDAOImpl;
+import htp.basumatarau.task03.service.impl.NewsServiceImpl;
 import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.HashSet;
 
@@ -48,18 +50,16 @@ public class DAOTest {
         newsItem.setTagSet(tags);
         newsItem.setCategory(newsCategory);
 
-        TagDAOImpl tagDAO = new TagDAOImpl();
-        AuthorDAOImpl authorDAO = new AuthorDAOImpl();
-        NewsCategoryDAOImpl newsCategoryDAO = new NewsCategoryDAOImpl();
-        NewsItemDAOImpl newsItemDAO = new NewsItemDAOImpl();
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("applicationContext.xml");
 
-        tagDAO.persist(t1);
-        tagDAO.persist(t2);
-        authorDAO.persist(a1);
-        authorDAO.persist(a2);
-        newsCategoryDAO.persist(newsCategory);
+        context.getBean("TagDAO", TagDAOImpl.class).persist(t1);
+        context.getBean("TagDAO", TagDAOImpl.class).persist(t2);
+        context.getBean("AuthorDAO", AuthorDAOImpl.class).persist(a1);
+        context.getBean("AuthorDAO", AuthorDAOImpl.class).persist(a2);
+        context.getBean("NewsCategoryDAO", NewsCategoryDAOImpl.class).persist(newsCategory);
 
-        newsItemDAO.persist(newsItem);
+        context.getBean("defaultNewsServiceImpl", NewsServiceImpl.class).persistNewsItem(newsItem);
     }
 
     @Test
@@ -71,4 +71,14 @@ public class DAOTest {
         System.out.println(item.getTagSet());
         System.out.println(item.getAuthorSet());
     }
+
+    @Test
+    public void newsItemDAOTest03(){
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("applicationContext.xml");
+        NewsServiceImpl defaultNewsServiceImpl = context.getBean("defaultNewsServiceImpl", NewsServiceImpl.class);
+        NewsItem ni = defaultNewsServiceImpl.getNewsItem(1);
+        System.out.println(ni.getAuthorSet());
+    }
+
 }

@@ -2,33 +2,47 @@ package htp.basumatarau.task03.dao.impl;
 
 import htp.basumatarau.task03.beans.Author;
 import htp.basumatarau.task03.dao.DAO;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import java.util.List;
 
-public class AuthorDAOImpl extends BaseDAO implements DAO<Integer, Author> {
+public class AuthorDAOImpl implements DAO<Integer, Author> {
+
+    private SessionFactory sessionFactory;
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     @Override
     public void persist(Author entity) {
-        openCurrentSessionWithTransaction().save(entity);
-        closeCurrenSessionWithTransaction();
+        try(Session session = sessionFactory.openSession()){
+            session.save(entity);
+        }
     }
 
     @Override
     public Author read(Integer integer) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<Author> read(Integer startingFrom, int numItems) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void update(Author entity) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void delete(Author entity) {
-
+        throw new UnsupportedOperationException();
     }
 }
