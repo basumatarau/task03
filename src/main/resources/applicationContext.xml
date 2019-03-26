@@ -7,7 +7,6 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<context:component-scan base-package="htp.basumatarau.task03.*"/>
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -55,6 +54,10 @@
 		  class="htp.basumatarau.task03.service.impl.NewsServiceImpl">
 		<property name="newsItemDAO" ref="NewsItemDAO"/>
 	</bean>
+
+	<context:component-scan base-package="htp.basumatarau.task03" />
+
+
 </beans>
 
 

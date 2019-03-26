@@ -1,44 +1,70 @@
 package htp.basumatarau.task03.controller;
 
-import htp.basumatarau.task03.controller.command.Command;
-import htp.basumatarau.task03.controller.command.DeleteNewsItemCmd;
-import htp.basumatarau.task03.controller.command.ReadNewsCmd;
-import htp.basumatarau.task03.controller.command.ReadNewsItemCmd;
-import htp.basumatarau.task03.controller.view.NewsItemView;
-import htp.basumatarau.task03.controller.view.PageView;
-import htp.basumatarau.task03.controller.view.PromptView;
-import htp.basumatarau.task03.controller.view.View;
+import htp.basumatarau.task03.controller.command.*;
+import htp.basumatarau.task03.controller.view.*;
 
 public enum Action {
     LIST_NEWS_ITEMS{
         {
+            name = "show-news";
             view = new PageView();
             cmd = new ReadNewsCmd();
         }
     },
     READ_NEWS_ITEM{
         {
+            name = "show-item";
             view = new NewsItemView();
             cmd = new ReadNewsItemCmd();
         }
     },
     DELETE_NEWS_ITEM{
         {
+            name = "delete";
             view = new PromptView();
-            cmd = new DeleteNewsItemCmd();
+            cmd = new PromptCmd();
         }
     },
-    ERROR{
+    RETURN_TO_BROWSING{
         {
+            name = "return";
             view = new PageView();
             cmd = new ReadNewsCmd();
         }
     },
-    TERMINATE;
+    CONFIRM_DELETE{
+        {
+            name = "yes";
+            view = new PromptView();
+            cmd = new DeleteNewsItemCmd();
+        }
+    },
+    CALLBACK_DELETE{
+        {
+            name = "no";
+            view = new PageView();
+            cmd = new ReadNewsCmd();
+        }
+    },
+    ERROR{
+        {
+            name = "error";
+            view = new ErrorView();
+            cmd = new ReadNewsCmd();
+        }
+    },
+    TERMINATE{
+        {
+            name = "stop";
+            view = new ErrorView();
+            cmd = new ReadNewsCmd();
+        }
+    };
 
     Action() {
     }
 
+    public String name;
     public View view;
     public Command cmd;
 }

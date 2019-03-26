@@ -24,7 +24,9 @@ public class NewsItemDAOImpl
     @Override
     public void persist(NewsItem entity) {
         try(Session session = sessionFactory.openSession()){
+            session.beginTransaction();
             session.save(entity);
+            session.getTransaction().commit();
         }
     }
 
@@ -41,6 +43,7 @@ public class NewsItemDAOImpl
 
             query.setParameter("id", id);
             singleResult = query.getSingleResult();
+            System.out.println(singleResult);
         }
         return singleResult;
     }
@@ -71,7 +74,9 @@ public class NewsItemDAOImpl
     @Override
     public void delete(NewsItem entity) {
         try(Session session = sessionFactory.openSession()){
+            session.beginTransaction();
             session.delete(entity);
+            session.getTransaction().commit();
         }
     }
 }
