@@ -107,6 +107,7 @@ public class Controller {
         }
     }
 
+    //usage "show-news" "show-item id=21" "delete" "yes" "no"
     public void run() {
         Scanner scanner = new Scanner(System.in);
         scanner.useDelimiter("\n");
